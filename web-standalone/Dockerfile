@@ -2,7 +2,8 @@
 # No dependencies, no storage: single small runtime stage.
 FROM python:3.13-alpine
 
-LABEL org.opencontainers.image.source="https://github.com/greentown0/meshcore-triangulator" \
+# CI (docker/metadata-action) overrides these with the building repo's values.
+LABEL org.opencontainers.image.source="https://github.com/khagele/meshcore-triangulator" \
       org.opencontainers.image.description="MeshCore triangulator (web-standalone): static UI + stdlib proxy to mc-radar/meshcore/PDOK"
 
 WORKDIR /app
