@@ -14,6 +14,22 @@ HOST=0.0.0.0 python3 server.py 8000   # bind for remote access — put a reverse
 
 Requires Python 3.7+ (stdlib only) and internet access.
 
+### Docker
+
+```bash
+docker compose up -d       # builds and serves http://127.0.0.1:8000
+# or without compose:
+docker build -t mc-map .
+docker run -d --name mc-map -p 127.0.0.1:8000:8000 \
+  --read-only --cap-drop ALL --security-opt no-new-privileges \
+  --restart unless-stopped mc-map
+```
+
+The container binds `0.0.0.0` internally (no state, no volumes needed); the
+`127.0.0.1:` prefix on the published port keeps it local — same reverse-proxy
+advice as below applies for remote access. Images are also built by CI:
+`ghcr.io/greentown0/meshcore-triangulator:latest`.
+
 To run persistently (survives reboots/crashes), use a systemd unit:
 
 ```ini

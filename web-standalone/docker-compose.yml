@@ -1,0 +1,14 @@
+services:
+  mc-map:
+    build: .
+    image: ghcr.io/greentown0/meshcore-triangulator:latest
+    # Bound to localhost — put a reverse proxy with TLS/access control in front
+    # for remote access (the proxy has no auth of its own).
+    ports:
+      - "127.0.0.1:8000:8000"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
